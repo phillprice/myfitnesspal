@@ -1,57 +1,30 @@
 """
-Component to integrate with blueprint.
+Component to integrate with strava.
 
 For more details about this component, please refer to
-https://github.com/custom-components/blueprint
+https://github.com/custom-components/strava
 """
+import logging
 import os
 from datetime import timedelta
-import logging
+
+import homeassistant.helpers.config_validation as cv
 import voluptuous as vol
 from homeassistant import config_entries
-import homeassistant.helpers.config_validation as cv
 from homeassistant.helpers import discovery
 from homeassistant.util import Throttle
-
-from sampleclient.client import Client
 from integrationhelper.const import CC_STARTUP_VERSION
+from sampleclient.client import Client
 
-from .const import (
-    CONF_BINARY_SENSOR,
-    CONF_ENABLED,
-    CONF_NAME,
-    CONF_PASSWORD,
-    CONF_SENSOR,
-    CONF_SWITCH,
-    CONF_USERNAME,
-    DEFAULT_NAME,
-    DOMAIN_DATA,
-    DOMAIN,
-    ISSUE_URL,
-    PLATFORMS,
-    REQUIRED_FILES,
-    VERSION,
-)
+from .const import (CONF_ENABLED, CONF_NAME, CONF_PASSWORD, CONF_SENSOR,
+                    CONF_USERNAME, DEFAULT_NAME, DOMAIN, DOMAIN_DATA,
+                    ISSUE_URL, PLATFORMS, REQUIRED_FILES, VERSION)
 
 MIN_TIME_BETWEEN_UPDATES = timedelta(seconds=30)
 
 _LOGGER = logging.getLogger(__name__)
 
-BINARY_SENSOR_SCHEMA = vol.Schema(
-    {
-        vol.Optional(CONF_ENABLED, default=True): cv.boolean,
-        vol.Optional(CONF_NAME, default=DEFAULT_NAME): cv.string,
-    }
-)
-
 SENSOR_SCHEMA = vol.Schema(
-    {
-        vol.Optional(CONF_ENABLED, default=True): cv.boolean,
-        vol.Optional(CONF_NAME, default=DEFAULT_NAME): cv.string,
-    }
-)
-
-SWITCH_SCHEMA = vol.Schema(
     {
         vol.Optional(CONF_ENABLED, default=True): cv.boolean,
         vol.Optional(CONF_NAME, default=DEFAULT_NAME): cv.string,
@@ -64,11 +37,7 @@ CONFIG_SCHEMA = vol.Schema(
             {
                 vol.Optional(CONF_USERNAME): cv.string,
                 vol.Optional(CONF_PASSWORD): cv.string,
-                vol.Optional(CONF_BINARY_SENSOR): vol.All(
-                    cv.ensure_list, [BINARY_SENSOR_SCHEMA]
-                ),
-                vol.Optional(CONF_SENSOR): vol.All(cv.ensure_list, [SENSOR_SCHEMA]),
-                vol.Optional(CONF_SWITCH): vol.All(cv.ensure_list, [SWITCH_SCHEMA]),
+                vol.Optional(CONF_SENSOR): vol.All(cv.ensure_list, [SENSOR_SCHEMA])
             }
         )
     },
@@ -101,7 +70,7 @@ async def async_setup(hass, config):
 
     # Configure the client.
     client = Client(username, password)
-    hass.data[DOMAIN_DATA]["client"] = BlueprintData(hass, client)
+    hass.data[DOMAIN_DATA]["client"] = StravaData(hass, client)
 
     # Load platforms
     for platform in PLATFORMS:
@@ -161,27 +130,17 @@ async def async_setup_entry(hass, config_entry):
 
     # Configure the client.
     client = Client(username, password)
-    hass.data[DOMAIN_DATA]["client"] = BlueprintData(hass, client)
-
-    # Add binary_sensor
-    hass.async_add_job(
-        hass.config_entries.async_forward_entry_setup(config_entry, "binary_sensor")
-    )
+    hass.data[DOMAIN_DATA]["client"] = StravaData(hass, client)
 
     # Add sensor
     hass.async_add_job(
         hass.config_entries.async_forward_entry_setup(config_entry, "sensor")
     )
 
-    # Add switch
-    hass.async_add_job(
-        hass.config_entries.async_forward_entry_setup(config_entry, "switch")
-    )
-
     return True
 
 
-class BlueprintData:
+class StravaData:
     """This class handle communication and stores the data."""
 
     def __init__(self, hass, client):
@@ -221,24 +180,9 @@ async def check_files(hass):
 
 async def async_remove_entry(hass, config_entry):
     """Handle removal of an entry."""
-    try:
-        await hass.config_entries.async_forward_entry_unload(
-            config_entry, "binary_sensor"
-        )
-        _LOGGER.info(
-            "Successfully removed binary_sensor from the blueprint integration"
-        )
-    except ValueError:
-        pass
 
     try:
         await hass.config_entries.async_forward_entry_unload(config_entry, "sensor")
-        _LOGGER.info("Successfully removed sensor from the blueprint integration")
-    except ValueError:
-        pass
-
-    try:
-        await hass.config_entries.async_forward_entry_unload(config_entry, "switch")
-        _LOGGER.info("Successfully removed switch from the blueprint integration")
+        _LOGGER.info("Successfully removed sensor from the strava integration")
     except ValueError:
         pass

@@ -1,7 +1,7 @@
 {
-  "domain": "blueprint",
-  "name": "Blueprint",
-  "documentation": "https://github.com/custom-components/blueprint",
+  "domain": "strava",
+  "name": "Strava",
+  "documentation": "https://github.com/custom-components/strava",
   "dependencies": [],
   "config_flow": true,
   "codeowners": [

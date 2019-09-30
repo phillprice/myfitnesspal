@@ -1,10 +1,10 @@
 {
     "config": {
-        "title": "Blueprint",
+        "title": "Strava",
         "step": {
             "user": {
-                "title": "Blueprint",
-                "description": "Hvis du trenger hjep til konfigurasjon ta en titt her: https://github.com/custom-components/blueprint",
+                "title": "Strava",
+                "description": "Hvis du trenger hjep til konfigurasjon ta en titt her: https://github.com/custom-components/strava",
                 "data": {
                     "username": "Brukernavn",
                     "password": "Passord"
@@ -15,7 +15,7 @@
             "auth": "Brukernavn/Passord er feil."
         },
         "abort": {
-            "single_instance_allowed": "Du kan konfigurere Blueprint kun en gang."
+            "single_instance_allowed": "Du kan konfigurere Strava kun en gang."
         }
     }
 }
