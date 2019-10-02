@@ -1,6 +1,6 @@
-"""Constants for strava."""
+"""Constants for myfitnesspal."""
 # Base component constants
-DOMAIN = "strava"
+DOMAIN = "myfitnesspal"
 DOMAIN_DATA = f"{DOMAIN}_data"
 VERSION = "0.0.1"
 PLATFORMS = ["sensor"]
@@ -11,11 +11,11 @@ REQUIRED_FILES = [
     "manifest.json",
     "sensor.py"
 ]
-ISSUE_URL = "https://github.com/custom-components/strava/issues"
-ATTRIBUTION = "Data from this is provided by strava."
+ISSUE_URL = "https://github.com/phillprice/myfitnesspal/issues"
+ATTRIBUTION = "Data from this is provided by myfitnesspal."
 
 # Icons
-ICON = "mdi:format-quote-close"
+ICON = "mdi:barley"
 
 # Configuration
 CONF_SENSOR = "sensor"

@@ -1,16 +1,17 @@
-"""Adds config flow for Strava."""
+"""Adds config flow for Myfitnesspal."""
 from collections import OrderedDict
+from datetime import date
 
+import myfitnesspal
 import voluptuous as vol
-from sampleclient.client import Client
 from homeassistant import config_entries
 
 from .const import DOMAIN
 
 
 @config_entries.HANDLERS.register(DOMAIN)
-class StravaFlowHandler(config_entries.ConfigFlow):
-    """Config flow for Strava."""
+class MyfitnesspalFlowHandler(config_entries.ConfigFlow):
+    """Config flow for Myfitnesspal."""
 
     VERSION = 1
     CONNECTION_CLASS = config_entries.CONN_CLASS_CLOUD_POLL
@@ -75,8 +76,10 @@ class StravaFlowHandler(config_entries.ConfigFlow):
     async def _test_credentials(self, username, password):
         """Return true if credentials is valid."""
         try:
-            client = Client(username, password)
-            client.get_data()
+            client = myfitnesspal.Client(username, password)
+            startdate = date.today()
+            mfpday = client.get_date( startdate.year, startdate.month, startdate.day)
+
             return True
         except Exception:  # pylint: disable=broad-except
             pass

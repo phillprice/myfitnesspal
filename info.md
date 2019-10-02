@@ -9,13 +9,13 @@
 [![Discord][discord-shield]][discord]
 [![Community Forum][forum-shield]][forum]
 
-_Component to integrate with [strava][strava]._
+_Component to integrate with [myfitnesspal][myfitnesspal]._
 
 **This component will set up the following platforms.**
 
 Platform | Description
 -- | --
-`sensor` | Show info from strava API.
+`sensor` | Show info from myfitnesspal API.
 
 ![example][exampleimg]
 
@@ -23,13 +23,13 @@ Platform | Description
 ## Installation
 
 1. Click install.
-1. Add `strava:` to your HA configuration.
+1. Add `myfitnesspal:` to your HA configuration.
 
 {% endif %}
 ## Example configuration.yaml
 
 ```yaml
-strava:
+myfitnesspal:
   username: my_username
   password: my_password
   sensor:
@@ -50,16 +50,16 @@ Key | Type | Required | Description
 Key | Type | Required | Default | Description
 -- | -- | -- | -- | --
 `enabled` | `boolean` | `False` | `True` | Boolean to enable/disable the platform.
-`name` | `string` | `False` | `strava` | Custom name for the entity.
+`name` | `string` | `False` | `myfitnesspal` | Custom name for the entity.
 
 
 ***
 
-[strava]: https://github.com/custom-components/strava
+[myfitnesspal]: https://github.com/custom-components/myfitnesspal
 [buymecoffee]: https://www.buymeacoffee.com/ludeeus
 [buymecoffeebadge]: https://img.shields.io/badge/buy%20me%20a%20coffee-donate-yellow.svg?style=for-the-badge
-[commits-shield]: https://img.shields.io/github/commit-activity/y/custom-components/strava.svg?style=for-the-badge
-[commits]: https://github.com/custom-components/strava/commits/master
+[commits-shield]: https://img.shields.io/github/commit-activity/y/custom-components/myfitnesspal.svg?style=for-the-badge
+[commits]: https://github.com/custom-components/myfitnesspal/commits/master
 [hacs]: https://github.com/custom-components/hacs
 [hacsbadge]: https://img.shields.io/badge/HACS-Custom-orange.svg?style=for-the-badge
 [discord]: https://discord.gg/Qa5fW2R
@@ -67,7 +67,7 @@ Key | Type | Required | Default | Description
 [exampleimg]: example.png
 [forum-shield]: https://img.shields.io/badge/community-forum-brightgreen.svg?style=for-the-badge
 [forum]: https://community.home-assistant.io/
-[license-shield]: https://img.shields.io/github/license/custom-components/strava.svg?style=for-the-badge
+[license-shield]: https://img.shields.io/github/license/custom-components/myfitnesspal.svg?style=for-the-badge
 [maintenance-shield]: https://img.shields.io/badge/maintainer-Joakim%20Sørensen%20%40ludeeus-blue.svg?style=for-the-badge
-[releases-shield]: https://img.shields.io/github/release/custom-components/strava.svg?style=for-the-badge
-[releases]: https://github.com/custom-components/strava/releases
+[releases-shield]: https://img.shields.io/github/release/custom-components/myfitnesspal.svg?style=for-the-badge
+[releases]: https://github.com/custom-components/myfitnesspal/releases

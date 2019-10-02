@@ -1,20 +1,20 @@
 """
-Component to integrate with strava.
+Component to integrate with myfitnesspal.
 
 For more details about this component, please refer to
-https://github.com/custom-components/strava
+https://github.com/custom-components/myfitnesspal
 """
 import logging
 import os
-from datetime import timedelta
+from datetime import date, timedelta
 
 import homeassistant.helpers.config_validation as cv
+import myfitnesspal
 import voluptuous as vol
 from homeassistant import config_entries
 from homeassistant.helpers import discovery
 from homeassistant.util import Throttle
 from integrationhelper.const import CC_STARTUP_VERSION
-from sampleclient.client import Client
 
 from .const import (CONF_ENABLED, CONF_NAME, CONF_PASSWORD, CONF_SENSOR,
                     CONF_USERNAME, DEFAULT_NAME, DOMAIN, DOMAIN_DATA,
@@ -53,7 +53,8 @@ async def async_setup(hass, config):
 
     # Print startup message
     _LOGGER.info(
-        CC_STARTUP_VERSION.format(name=DOMAIN, version=VERSION, issue_link=ISSUE_URL)
+        CC_STARTUP_VERSION.format(
+            name=DOMAIN, version=VERSION, issue_link=ISSUE_URL)
     )
 
     # Check that all required files are present
@@ -69,8 +70,8 @@ async def async_setup(hass, config):
     password = config[DOMAIN].get(CONF_PASSWORD)
 
     # Configure the client.
-    client = Client(username, password)
-    hass.data[DOMAIN_DATA]["client"] = StravaData(hass, client)
+    client = myfitnesspal.Client(username, password)
+    hass.data[DOMAIN_DATA]["client"] = MyfitnesspalData(hass, client)
 
     # Load platforms
     for platform in PLATFORMS:
@@ -113,7 +114,8 @@ async def async_setup_entry(hass, config_entry):
 
     # Print startup message
     _LOGGER.info(
-        CC_STARTUP_VERSION.format(name=DOMAIN, version=VERSION, issue_link=ISSUE_URL)
+        CC_STARTUP_VERSION.format(
+            name=DOMAIN, version=VERSION, issue_link=ISSUE_URL)
     )
 
     # Check that all required files are present
@@ -129,8 +131,8 @@ async def async_setup_entry(hass, config_entry):
     password = config_entry.data.get(CONF_PASSWORD)
 
     # Configure the client.
-    client = Client(username, password)
-    hass.data[DOMAIN_DATA]["client"] = StravaData(hass, client)
+    client = myfitnesspal.Client(username, password)
+    hass.data[DOMAIN_DATA]["client"] = MyfitnesspalData(hass, client)
 
     # Add sensor
     hass.async_add_job(
@@ -140,7 +142,7 @@ async def async_setup_entry(hass, config_entry):
     return True
 
 
-class StravaData:
+class MyfitnesspalData:
     """This class handle communication and stores the data."""
 
     def __init__(self, hass, client):
@@ -153,8 +155,14 @@ class StravaData:
         """Update data."""
         # This is where the main logic to update platform data goes.
         try:
-            data = self.client.get_data()
-            self.hass.data[DOMAIN_DATA]["data"] = data
+            startdate = date.today()
+            mfpday = self.client.get_date(
+                startdate.year,
+                startdate.month,
+                startdate.day
+            )
+            _LOGGER.error(mfpday.totals)
+            self.hass.data[DOMAIN_DATA]["data"] = mfpday.totals
         except Exception as error:  # pylint: disable=broad-except
             _LOGGER.error("Could not update data - %s", error)
 
@@ -183,6 +191,7 @@ async def async_remove_entry(hass, config_entry):
 
     try:
         await hass.config_entries.async_forward_entry_unload(config_entry, "sensor")
-        _LOGGER.info("Successfully removed sensor from the strava integration")
+        _LOGGER.info(
+            "Successfully removed sensor from the myfitnesspal integration")
     except ValueError:
         pass

@@ -1,10 +1,10 @@
 # Notice
 
 The component and platforms in this repository are not meant to be used by a
-user, but as a "strava" that custom component developers can build
+user, but as a "myfitnesspal" that custom component developers can build
 upon, to make more awesome stuff.
 
-This strava uses ['sampleclient'](https://github.com/ludeeus/sampleclient) to simulate what you actually might use in your integration.
+This myfitnesspal uses ['sampleclient'](https://github.com/ludeeus/sampleclient) to simulate what you actually might use in your integration.
 
 HAVE FUN! 😎
 
@@ -13,7 +13,7 @@ HAVE FUN! 😎
 This is simple, by having custom_components look (README + structure) the same
 it is easier for developers to help each other and for users to start using them.
 
-If you are a developer and you want to add things to this "strava" that you think more
+If you are a developer and you want to add things to this "myfitnesspal" that you think more
 developers will have use for, please open a PR to add it :)
 
 ## What?
@@ -27,12 +27,12 @@ File | Purpose
 `.github/ISSUE_TEMPLATE/issue.md` | Template for issues
 `.github/settings.yml` | Probot settings to control the repository settings.
 `.vscode/taks.json` | Tasks for the devcontainer.
-`custom_components/strava/.translations/*` | [Translation files.](https://developers.home-assistant.io/docs/en/next/internationalization_custom_component_localization.html#translation-strings)
-`custom_components/strava/__init__.py` | The component file for the integration.
-`custom_components/strava/config_flow.py` | Config flow file, this adds the UI configuration possibilities.
-`custom_components/strava/const.py` | A file to hold shared variables/constants for the entire integration.
-`custom_components/strava/manifest.json` | A [manifest file](https://developers.home-assistant.io/docs/en/creating_integration_manifest.html) for Home Assistant.
-`custom_components/strava/sensor.py` | Sensor platform for the integration.
+`custom_components/myfitnesspal/.translations/*` | [Translation files.](https://developers.home-assistant.io/docs/en/next/internationalization_custom_component_localization.html#translation-strings)
+`custom_components/myfitnesspal/__init__.py` | The component file for the integration.
+`custom_components/myfitnesspal/config_flow.py` | Config flow file, this adds the UI configuration possibilities.
+`custom_components/myfitnesspal/const.py` | A file to hold shared variables/constants for the entire integration.
+`custom_components/myfitnesspal/manifest.json` | A [manifest file](https://developers.home-assistant.io/docs/en/creating_integration_manifest.html) for Home Assistant.
+`custom_components/myfitnesspal/sensor.py` | Sensor platform for the integration.
 `CONTRIBUTING.md` | Guidelines on how to contribute.
 `example.png` | Screenshot that demonstrate how it might look in the UI.
 `info.md` | An example on a info file (used by [hacs][hacs]).
@@ -44,7 +44,7 @@ File | Purpose
 README content if this was a published component:
 ***
 
-# strava
+# myfitnesspal
 
 [![GitHub Release][releases-shield]][releases]
 [![GitHub Activity][commits-shield]][commits]
@@ -57,13 +57,13 @@ README content if this was a published component:
 [![Discord][discord-shield]][discord]
 [![Community Forum][forum-shield]][forum]
 
-_Component to integrate with [strava][strava]._
+_Component to integrate with [myfitnesspal][myfitnesspal]._
 
 **This component will set up the following platforms.**
 
 Platform | Description
 -- | --
-`sensor` | Show info from strava API.
+`sensor` | Show info from myfitnesspal API.
 
 ![example][exampleimg]
 
@@ -71,31 +71,31 @@ Platform | Description
 
 1. Using the tool of choice open the directory (folder) for your HA configuration (where you find `configuration.yaml`).
 2. If you do not have a `custom_components` directory (folder) there, you need to create it.
-3. In the `custom_components` directory (folder) create a new folder called `strava`.
-4. Download _all_ the files from the `custom_components/strava/` directory (folder) in this repository.
+3. In the `custom_components` directory (folder) create a new folder called `myfitnesspal`.
+4. Download _all_ the files from the `custom_components/myfitnesspal/` directory (folder) in this repository.
 5. Place the files you downloaded in the new directory (folder) you created.
 6. Restart Home Assistant
 7. Choose:
-   - Add `strava:` to your HA configuration.
-   - In the HA UI go to "Configuration" -> "Integrations" click "+" and search for "Strava"
+   - Add `myfitnesspal:` to your HA configuration.
+   - In the HA UI go to "Configuration" -> "Integrations" click "+" and search for "Myfitnesspal"
 
 Using your HA configuration directory (folder) as a starting point you should now also have this:
 
 ```text
-custom_components/strava/.translations/en.json
-custom_components/strava/.translations/nb.json
-custom_components/strava/.translations/sensor.nb.json
-custom_components/strava/__init__.py
-custom_components/strava/config_flow.py
-custom_components/strava/const.py
-custom_components/strava/manifest.json
-custom_components/strava/sensor.py
+custom_components/myfitnesspal/.translations/en.json
+custom_components/myfitnesspal/.translations/nb.json
+custom_components/myfitnesspal/.translations/sensor.nb.json
+custom_components/myfitnesspal/__init__.py
+custom_components/myfitnesspal/config_flow.py
+custom_components/myfitnesspal/const.py
+custom_components/myfitnesspal/manifest.json
+custom_components/myfitnesspal/sensor.py
 ```
 
 ## Example configuration.yaml
 
 ```yaml
-strava:
+myfitnesspal:
   username: my_username
   password: my_password
   sensor:
@@ -116,7 +116,7 @@ Key | Type | Required | Description
 Key | Type | Required | Default | Description
 -- | -- | -- | -- | --
 `enabled` | `boolean` | `False` | `True` | Boolean to enable/disable the platform.
-`name` | `string` | `False` | `strava` | Custom name for the entity.
+`name` | `string` | `False` | `myfitnesspal` | Custom name for the entity.
 
 ## Contributions are welcome!
 
@@ -124,11 +124,11 @@ If you want to contribute to this please read the [Contribution guidelines](CONT
 
 ***
 
-[strava]: https://github.com/custom-components/strava
+[myfitnesspal]: https://github.com/custom-components/myfitnesspal
 [buymecoffee]: https://www.buymeacoffee.com/ludeeus
 [buymecoffeebadge]: https://img.shields.io/badge/buy%20me%20a%20coffee-donate-yellow.svg?style=for-the-badge
-[commits-shield]: https://img.shields.io/github/commit-activity/y/custom-components/strava.svg?style=for-the-badge
-[commits]: https://github.com/custom-components/strava/commits/master
+[commits-shield]: https://img.shields.io/github/commit-activity/y/custom-components/myfitnesspal.svg?style=for-the-badge
+[commits]: https://github.com/custom-components/myfitnesspal/commits/master
 [hacs]: https://github.com/custom-components/hacs
 [hacsbadge]: https://img.shields.io/badge/HACS-Custom-orange.svg?style=for-the-badge
 [discord]: https://discord.gg/Qa5fW2R
@@ -136,7 +136,7 @@ If you want to contribute to this please read the [Contribution guidelines](CONT
 [exampleimg]: example.png
 [forum-shield]: https://img.shields.io/badge/community-forum-brightgreen.svg?style=for-the-badge
 [forum]: https://community.home-assistant.io/
-[license-shield]: https://img.shields.io/github/license/custom-components/strava.svg?style=for-the-badge
+[license-shield]: https://img.shields.io/github/license/custom-components/myfitnesspal.svg?style=for-the-badge
 [maintenance-shield]: https://img.shields.io/badge/maintainer-Joakim%20Sørensen%20%40ludeeus-blue.svg?style=for-the-badge
-[releases-shield]: https://img.shields.io/github/release/custom-components/strava.svg?style=for-the-badge
-[releases]: https://github.com/custom-components/strava/releases
+[releases-shield]: https://img.shields.io/github/release/custom-components/myfitnesspal.svg?style=for-the-badge
+[releases]: https://github.com/custom-components/myfitnesspal/releases

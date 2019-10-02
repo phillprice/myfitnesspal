@@ -1,0 +1,15 @@
+{
+  "domain": "myfitnesspal",
+  "name": "Myfitnesspal",
+  "documentation": "https://github.com/custom-components/myfitnesspal",
+  "dependencies": [],
+  "config_flow": true,
+  "codeowners": [
+    "@phillprice"
+  ],
+  "requirements": [
+    "myfitnesspal==1.13.3",
+    "integrationhelper"
+  ],
+  "homeassistant": "0.96.0"
+}

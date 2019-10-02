@@ -1,22 +1,27 @@
-"""Sensor platform for strava."""
+"""Sensor platform for myfitnesspal."""
+import logging
+
 from homeassistant.helpers.entity import Entity
-from .const import ATTRIBUTION, DEFAULT_NAME, DOMAIN_DATA, ICON, DOMAIN
+
+from .const import ATTRIBUTION, DEFAULT_NAME, DOMAIN, DOMAIN_DATA, ICON
+
+_LOGGER = logging.getLogger(__name__)
 
 
 async def async_setup_platform(
     hass, config, async_add_entities, discovery_info=None
 ):  # pylint: disable=unused-argument
     """Setup sensor platform."""
-    async_add_entities([StravaSensor(hass, discovery_info)], True)
+    async_add_entities([MyfitnesspalSensor(hass, discovery_info)], True)
 
 
 async def async_setup_entry(hass, config_entry, async_add_devices):
     """Setup sensor platform."""
-    async_add_devices([StravaSensor(hass, {})], True)
+    async_add_devices([MyfitnesspalSensor(hass, {})], True)
 
 
-class StravaSensor(Entity):
-    """strava Sensor class."""
+class MyfitnesspalSensor(Entity):
+    """myfitnesspal Sensor class."""
 
     def __init__(self, hass, config):
         self.hass = hass
@@ -33,15 +38,13 @@ class StravaSensor(Entity):
         updated = self.hass.data[DOMAIN_DATA]["data"].get("data", {})
 
         # Check the data and update the value.
-        if updated.get("static") is None:
-            self._state = self._state
-        else:
-            self._state = updated.get("static")
-
-        # Set/update attributes
-        self.attr["attribution"] = ATTRIBUTION
-        self.attr["time"] = str(updated.get("time"))
-        self.attr["none"] = updated.get("none")
+        _LOGGER.error(updated)
+        if 'calories' in updated:
+            self._state = updated['calories']
+            updated.pop('calories')
+            self._attributes = updated
+        elif updated == {}:
+            self._state = 0
 
     @property
     def unique_id(self):
@@ -55,7 +58,7 @@ class StravaSensor(Entity):
         return {
             "identifiers": {(DOMAIN, self.unique_id)},
             "name": self.name,
-            "manufacturer": "Strava",
+            "manufacturer": "Myfitnesspal",
         }
 
     @property

@@ -2,11 +2,11 @@ default_config:
 logger:
   default: error
   logs:
-    custom_components.strava: debug
+    custom_components.myfitnesspal: debug
 
 
 
-strava:
+myfitnesspal:
   username: my_username
   password: my_password
   sensor:
