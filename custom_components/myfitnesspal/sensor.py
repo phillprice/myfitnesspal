@@ -35,7 +35,7 @@ class MyfitnesspalSensor(Entity):
         await self.hass.data[DOMAIN_DATA]["client"].update_data()
 
         # Get new data (if any)
-        updated = self.hass.data[DOMAIN_DATA]["data"].get("data", {})
+        updated = self.hass.data[DOMAIN_DATA].get("data", {})
 
         # Check the data and update the value.
         _LOGGER.error(updated)
