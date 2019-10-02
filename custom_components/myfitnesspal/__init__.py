@@ -156,11 +156,11 @@ class MyfitnesspalData:
         # This is where the main logic to update platform data goes.
         try:
             startdate = date.today()
-            mfpday = self.client.get_date(
+            mfpday = await self.hass.async_add_executor_job(self.client.get_date(
                 startdate.year,
                 startdate.month,
                 startdate.day
-            )
+            ))
             _LOGGER.error(mfpday.totals)
             self.hass.data[DOMAIN_DATA]["data"] = mfpday.totals
         except Exception as error:  # pylint: disable=broad-except
